@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Moody</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&family=Calistoga&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="index.css">
+    </head>
+
+    <body>
+        <section id="logged-out-view">
+            <div class="container">
+                <h1 class="app-title">Moody</h1>
+                
+                <div class="provider-buttons">
+                    <button id="sign-in-with-google-btn" class="provider-btn">
+                        <!-- <img src="assets/providers/google.png" class="google-btn-logo"> -->
+                        Sign in with Google
+                    </button>
+                </div>
+                
+                <div class="auth-fields-and-buttons">
+                    <input id="email-input" type="email" placeholder="Email">
+                    <input id="password-input" type="password" placeholder="Password">
+                    
+                    <button id="sign-in-btn" class="primary-btn">Sign in</button>
+                    <button id="create-account-btn" class="secondary-btn">Create Account</button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="logged-in-view">
+            <div class="container">
+                <!-- <img src="assets/gifs/jerryandthebird.gif"> -->
+            </div>
+        </section>
+        
+        <script src="index.js" type="module"></script>
+    </body>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAfqNeWbyEXrH-RcucrykVdk3NSFIZuZ8M",
+          authDomain: "journalapp-315d7.firebaseapp.com",
+          projectId: "journalapp-315d7",
+          storageBucket: "journalapp-315d7.appspot.com",
+          messagingSenderId: "143004530380",
+          appId: "1:143004530380:web:4e69475a8e990380457469"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+      </script>
+
+</html>
