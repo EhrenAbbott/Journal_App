@@ -1,7 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-
-
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"
+import {getAuth} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAfqNeWbyEXrH-RcucrykVdk3NSFIZuZ8M",
@@ -11,8 +9,11 @@ const firebaseConfig = {
   };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app)
 
-console.log(app)
+
+console.log(auth)
+
 
 const viewLoggedOut = document.getElementById("logged-out-view")
 const viewLoggedIn = document.getElementById("logged-in-view")
