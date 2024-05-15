@@ -59,7 +59,7 @@ function authSignInWithEmail() {
     const password = passwordInputEl.value
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
+            clearAuthFields()
             showLoggedInView()
             console.log("Successfully signed in")
   })
@@ -75,6 +75,7 @@ function authCreateAccountWithEmail() {
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+            clearAuthFields()
             showLoggedInView()
             console.log("Account successfully created")
         })
@@ -112,4 +113,13 @@ function showElement(element) {
 
 function hideElement(element) {
     element.style.display = "none"
+}
+
+function clearInputField(field) {
+	field.value = ""
+}
+
+function clearAuthFields() {
+	clearInputField(emailInputEl)
+	clearInputField(passwordInputEl)
 }
