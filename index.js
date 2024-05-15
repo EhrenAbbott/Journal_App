@@ -2,7 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/fireba
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"
+    signInWithEmailAndPassword, 
+    signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAfqNeWbyEXrH-RcucrykVdk3NSFIZuZ8M",
@@ -28,12 +29,18 @@ const passwordInputEl = document.getElementById("password-input")
 const signInButtonEl = document.getElementById("sign-in-btn")
 const createAccountButtonEl = document.getElementById("create-account-btn")
 
+const signOutButtonEl = document.getElementById("sign-out-btn")
+
+
 /* == UI - Event Listeners == */
 
 signInWithGoogleButtonEl.addEventListener("click", authSignInWithGoogle)
 
 signInButtonEl.addEventListener("click", authSignInWithEmail)
 createAccountButtonEl.addEventListener("click", authCreateAccountWithEmail)
+
+signOutButtonEl.addEventListener("click", authSignOut)
+
 
 /* === Main Code === */
 
@@ -54,12 +61,12 @@ function authSignInWithEmail() {
         .then((userCredential) => {
             const user = userCredential.user;
             showLoggedInView()
+            console.log("Successfully signed in")
   })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
   });
-    console.log("Sign in with email and password")
 }
 
 function authCreateAccountWithEmail() {
@@ -69,12 +76,21 @@ function authCreateAccountWithEmail() {
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             showLoggedInView()
+            console.log("Account successfully created")
         })
         .catch((error) => {
             console.error(error.message)
         })
 }
 
+function authSignOut() { 
+    signOut(auth).then(() => {
+        showLoggedOutView()
+        console.log("logout successful")
+        }).catch((error) => {
+            consnole.error("An error has occurred")
+    });
+}
 
 
 
