@@ -3,7 +3,8 @@ import {
     getAuth, 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
-    signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"
+    signOut, 
+    onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAfqNeWbyEXrH-RcucrykVdk3NSFIZuZ8M",
@@ -50,6 +51,14 @@ showLoggedOutView()
 
 /* = Functions - Firebase - Authentication = */
 
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        showLoggedInView()
+    } else {
+        showLoggedOutView()
+    }
+})
+
 function authSignInWithGoogle() {
     console.log("Sign in with Google")
 }
@@ -60,7 +69,6 @@ function authSignInWithEmail() {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             clearAuthFields()
-            showLoggedInView()
             console.log("Successfully signed in")
   })
         .catch((error) => {
@@ -76,7 +84,6 @@ function authCreateAccountWithEmail() {
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             clearAuthFields()
-            showLoggedInView()
             console.log("Account successfully created")
         })
         .catch((error) => {
@@ -86,7 +93,6 @@ function authCreateAccountWithEmail() {
 
 function authSignOut() { 
     signOut(auth).then(() => {
-        showLoggedOutView()
         console.log("logout successful")
         }).catch((error) => {
             consnole.error("An error has occurred")
@@ -98,21 +104,21 @@ function authSignOut() {
 /* == Functions - UI Functions == */
 
 function showLoggedOutView() {
-    hideElement(viewLoggedIn)
-    showElement(viewLoggedOut)
+    hideView(viewLoggedIn)
+    showView(viewLoggedOut)
 }
 
 function showLoggedInView() {
-    hideElement(viewLoggedOut)
-    showElement(viewLoggedIn)
+    hideView(viewLoggedOut)
+    showView(viewLoggedIn)
 }
 
-function showElement(element) {
-    element.style.display = "flex"
+function showView(view) {
+    view.style.display = "flex"
 }
 
-function hideElement(element) {
-    element.style.display = "none"
+function hideView(view) {
+    view.style.display = "none"
 }
 
 function clearInputField(field) {
