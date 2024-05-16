@@ -36,6 +36,7 @@ const createAccountButtonEl = document.getElementById("create-account-btn")
 const signOutButtonEl = document.getElementById("sign-out-btn")
 
 const userProfilePictureEl = document.getElementById("user-profile-picture")
+const userGreetingEl = document.getElementById("user-greeting")
 
 
 /* == UI - Event Listeners == */
@@ -60,6 +61,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         showLoggedInView()
         showProfilePicture(userProfilePictureEl, user)
+        showUserGreeting(userGreetingEl, user)
     } else {
         showLoggedOutView()
     }
@@ -147,5 +149,15 @@ function showProfilePicture(imgElement, user){
         imgElement.src = user.photoURL
     } else { 
         imgElement.src = "assets/icons/profile.icon.webp"
+    }
+}
+
+function showUserGreeting(element, user) { 
+    const displayName = user.displayName
+    if (displayName){ 
+        const userFirstName = displayName.split(" ")[0]
+        element.innerText = `Welcome, ${userFirstName}, how are you?`
+    } else { 
+        element.innerText = "Welcome, friend, how are you?"
     }
 }
