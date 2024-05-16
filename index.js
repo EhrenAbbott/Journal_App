@@ -6,7 +6,8 @@ import {
     signOut, 
     onAuthStateChanged, 
     GoogleAuthProvider, 
-    signInWithPopup } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"
+    signInWithPopup, 
+    updateProfile } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAfqNeWbyEXrH-RcucrykVdk3NSFIZuZ8M",
@@ -38,6 +39,10 @@ const signOutButtonEl = document.getElementById("sign-out-btn")
 const userProfilePictureEl = document.getElementById("user-profile-picture")
 const userGreetingEl = document.getElementById("user-greeting")
 
+const displayNameInputEl = document.getElementById("display-name-input")
+const photoURLInputEl = document.getElementById("photo-url-input")
+const updateProfileButtonEl = document.getElementById("update-profile-btn")
+
 
 /* == UI - Event Listeners == */
 
@@ -47,6 +52,8 @@ signInButtonEl.addEventListener("click", authSignInWithEmail)
 createAccountButtonEl.addEventListener("click", authCreateAccountWithEmail)
 
 signOutButtonEl.addEventListener("click", authSignOut)
+
+updateProfileButtonEl.addEventListener("click", authUpdateProfile)
 
 
 /* === Main Code === */
@@ -111,6 +118,19 @@ function authSignOut() {
         }).catch((error) => {
             consnole.error("An error has occurred")
     });
+}
+
+function authUpdateProfile() { 
+    const newDisplayName = displayNameInputEl.value
+    const newPhotoURL = photoURLInputEl.value
+    updateProfile(auth.currentUser, {
+        displayName: newDisplayName, 
+        photoURL: newPhotoURL
+        }).then(() => {
+            console.log(`Name update: new name is ${newDisplayName} `)
+        }).catch((error) => {
+            console.error("There has been an error updating the profile")
+      });
 }
 
 
