@@ -153,6 +153,7 @@ async function addPostToDB(postBody, user) {
     try {
         const docRef = await addDoc(collection(db, "posts"), {
           body: postBody,
+          uid: user.uid
         });
         console.log("Posts added with ID: ", docRef.id);
       } catch (error) {
