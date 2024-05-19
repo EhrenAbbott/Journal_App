@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"
+
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
@@ -8,7 +9,11 @@ import {
     GoogleAuthProvider, 
     signInWithPopup, 
     updateProfile } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
+
+import { 
+        getFirestore, 
+        collection, 
+        addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAfqNeWbyEXrH-RcucrykVdk3NSFIZuZ8M",
@@ -46,6 +51,9 @@ const displayNameInputEl = document.getElementById("display-name-input")
 const photoURLInputEl = document.getElementById("photo-url-input")
 const updateProfileButtonEl = document.getElementById("update-profile-btn")
 
+const textareaEl = document.getElementById("post-input")
+const postButtonEl = document.getElementById("post-btn")
+
 
 /* == UI - Event Listeners == */
 
@@ -57,6 +65,9 @@ createAccountButtonEl.addEventListener("click", authCreateAccountWithEmail)
 signOutButtonEl.addEventListener("click", authSignOut)
 
 updateProfileButtonEl.addEventListener("click", authUpdateProfile)
+
+postButtonEl.addEventListener("click", postButtonPressed)
+
 
 
 /* === Main Code === */
@@ -136,9 +147,31 @@ function authUpdateProfile() {
       });
 }
 
+/* = Functions - Firebase - Cloud Firestore = */
+
+async function addPostToDB(postBody) {
+    try {
+        const docRef = await addDoc(collection(db, "posts"), {
+          body: postBody,
+        });
+        console.log("Posts added with ID: ", docRef.id);
+      } catch (error) {
+        console.error(error.message);
+      }
+}
+
 
 
 /* == Functions - UI Functions == */
+
+function postButtonPressed() {
+    const postBody = textareaEl.value
+    
+    if (postBody) {
+        addPostToDB(postBody)
+        clearInputField(textareaEl)
+    }
+}
 
 function showLoggedOutView() {
     hideView(viewLoggedIn)

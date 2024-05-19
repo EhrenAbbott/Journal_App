@@ -80,6 +80,14 @@ section {
     border: var(--border-width) solid var(--dark-color);
 }
 
+/* === Post Section === */
+
+.post-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
 .user-section h2 {
     font-size: 1.2em;
 }
@@ -118,18 +126,21 @@ nav {
 
 /* === Common for elements === */
 
-input, button {
+input, button, textarea {
     font-family: inherit;
     padding: var(--element-padding);
     border-radius: var(--element-border-radius);
     width: 100%;
     box-sizing: border-box;
+}
+
+input, button {
     font-size: 1.1em;
     text-align: center;
     border: var(--border-width) solid var(--dark-color);
 }
 
-input:focus, button:focus {
+input:focus, button:focus, textarea:focus {
     outline: none;
 }
 
