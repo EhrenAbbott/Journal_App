@@ -13,7 +13,9 @@ import {
 import { 
         getFirestore, 
         collection, 
-        addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
+        addDoc, 
+        serverTimestamp, 
+        updateDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAfqNeWbyEXrH-RcucrykVdk3NSFIZuZ8M",
@@ -150,11 +152,14 @@ function authUpdateProfile() {
 /* = Functions - Firebase - Cloud Firestore = */
 
 async function addPostToDB(postBody, user) {
+    
     try {
         const docRef = await addDoc(collection(db, "posts"), {
           body: postBody,
-          uid: user.uid
+          uid: user.uid,
+          createdAt: serverTimestamp()
         });
+ 
         console.log("Posts added with ID: ", docRef.id);
       } catch (error) {
         console.error(error.message);
