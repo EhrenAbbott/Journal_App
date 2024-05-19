@@ -180,9 +180,10 @@ function postButtonPressed() {
     const postBody = textareaEl.value
     const user = auth.currentUser
     
-    if (postBody) {
+    if (postBody && moodState) {
         addPostToDB(postBody, user)
         clearInputField(textareaEl)
+        resetAllMoodElements(moodEmojiEls)
     }
 }
 
@@ -217,7 +218,7 @@ function showProfilePicture(imgElement, user){
     if (user.photoURL){ 
         imgElement.src = user.photoURL
     } else { 
-        imgElement.src = "assets/icons/profile.icon.webp"
+        imgElement.src = "assets/icons/user-icon.png"
     }
 }
 
