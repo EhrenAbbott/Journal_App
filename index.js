@@ -13,6 +13,7 @@ import {
 import { 
         getFirestore, 
         collection, 
+        getDocs,
         addDoc, 
         serverTimestamp, 
          } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
@@ -179,6 +180,13 @@ async function addPostToDB(postBody, user) {
       }
 }
 
+async function fetchOnceAndRenderPostsFromDB() {
+
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data().body);
+
+    });        
 
 
 /* == Functions - UI Functions == */
