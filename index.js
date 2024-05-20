@@ -184,12 +184,25 @@ async function fetchOnceAndRenderPostsFromDB() {
 
     const querySnapshot = await getDocs(collection(db, "posts"));
     querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data().body);
-
+        renderPost(postsEl, doc.data())
     });        
-
+}
 
 /* == Functions - UI Functions == */
+
+function renderPost(postsEl, postData) {
+    postsEl.innerHTML += `
+        <div class="post">
+            <div class="header">
+                <h3>${displayDate(postData.createdAt)}</h3>
+                <img src="assets/emojis/${postData.mood}.png">
+            </div>
+            <p>
+                ${postData.body}
+            </p>
+        </div>
+    `
+}
 
 function postButtonPressed() {
     const postBody = textareaEl.value
