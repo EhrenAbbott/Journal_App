@@ -275,6 +275,9 @@ function showUserGreeting(element, user) {
 }
 
 function displayDate(firebaseDate) {
+    if (!firebaseDate) {
+        return "Date processing..."
+    }
     const date = firebaseDate.toDate()
     
     const day = date.getDate()
