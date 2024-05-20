@@ -183,6 +183,9 @@ async function addPostToDB(postBody, user) {
 async function fetchOnceAndRenderPostsFromDB() {
 
     const querySnapshot = await getDocs(collection(db, "posts"));
+
+    clearAll(postsEl)
+
     querySnapshot.forEach((doc) => {
         renderPost(postsEl, doc.data())
     });        
@@ -213,6 +216,10 @@ function postButtonPressed() {
         clearInputField(textareaEl)
         resetAllMoodElements(moodEmojiEls)
     }
+}
+
+function clearAll(element) {
+    element.innerHTML = ""
 }
 
 function showLoggedOutView() {
