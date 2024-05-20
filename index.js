@@ -158,12 +158,12 @@ function authUpdateProfile() {
 /* = Functions - Firebase - Cloud Firestore = */
 
 async function addPostToDB(postBody, user) {
-    
     try {
         const docRef = await addDoc(collection(db, "posts"), {
           body: postBody,
           uid: user.uid,
-          createdAt: serverTimestamp()
+          createdAt: serverTimestamp(),
+          mood: moodState
         });
  
         console.log("Posts added with ID: ", docRef.id);
