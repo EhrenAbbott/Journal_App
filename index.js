@@ -13,9 +13,9 @@ import {
 import { 
         getFirestore, 
         collection, 
-        getDocs,
         addDoc, 
         serverTimestamp, 
+        onSnapshot
          } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
 
 const firebaseConfig = {
@@ -58,8 +58,6 @@ const moodEmojiEls = document.getElementsByClassName("mood-emoji-btn")
 const textareaEl = document.getElementById("post-input")
 const postButtonEl = document.getElementById("post-btn")
 
-const fetchPostsButtonEl = document.getElementById("fetch-posts-btn")
-
 const postsEl = document.getElementById("posts")
 
 
@@ -80,12 +78,15 @@ updateProfileButtonEl.addEventListener("click", authUpdateProfile)
 
 postButtonEl.addEventListener("click", postButtonPressed)
 
-fetchPostsButtonEl.addEventListener("click", fetchOnceAndRenderPostsFromDB)
 
 
 /* === State === */
 
 let moodState = 0
+
+/* === Global Constants === */
+
+const collectionName = "posts"
 
 /* === Main Code === */
 
@@ -94,6 +95,7 @@ onAuthStateChanged(auth, (user) => {
         showLoggedInView()
         showProfilePicture(userProfilePictureEl, user)
         showUserGreeting(userGreetingEl, user)
+        fetchInRealtimeAndRenderPostsFromDB()
     } else {
         showLoggedOutView()
     }
@@ -167,7 +169,7 @@ function authUpdateProfile() {
 
 async function addPostToDB(postBody, user) {
     try {
-        const docRef = await addDoc(collection(db, "posts"), {
+        const docRef = await addDoc(collection(db, collectionName), {
           body: postBody,
           uid: user.uid,
           createdAt: serverTimestamp(),
@@ -180,16 +182,17 @@ async function addPostToDB(postBody, user) {
       }
 }
 
-async function fetchOnceAndRenderPostsFromDB() {
-
-    const querySnapshot = await getDocs(collection(db, "posts"));
-
-    clearAll(postsEl)
-
-    querySnapshot.forEach((doc) => {
-        renderPost(postsEl, doc.data())
-    });        
+function fetchInRealtimeAndRenderPostsFromDB() {
+    onSnapshot(collection(db, collectionName), (querySnapshot) => {
+        clearAll(postsEl)
+        
+        querySnapshot.forEach((doc) => {
+            renderPost(postsEl, doc.data())
+        })
+    })
 }
+
+
 
 /* == Functions - UI Functions == */
 
