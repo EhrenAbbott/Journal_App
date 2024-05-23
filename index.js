@@ -15,7 +15,9 @@ import {
         collection, 
         addDoc, 
         serverTimestamp, 
-        onSnapshot
+        onSnapshot, 
+        where, 
+        query
          } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
 
 const firebaseConfig = {
@@ -95,7 +97,7 @@ onAuthStateChanged(auth, (user) => {
         showLoggedInView()
         showProfilePicture(userProfilePictureEl, user)
         showUserGreeting(userGreetingEl, user)
-        fetchInRealtimeAndRenderPostsFromDB()
+        fetchInRealtimeAndRenderPostsFromDB(user)
     } else {
         showLoggedOutView()
     }
@@ -182,8 +184,11 @@ async function addPostToDB(postBody, user) {
       }
 }
 
-function fetchInRealtimeAndRenderPostsFromDB() {
-    onSnapshot(collection(db, collectionName), (querySnapshot) => {
+function fetchInRealtimeAndRenderPostsFromDB(user) {
+    const postsRef = collection(db, collectionName)
+    const q = query(postsRef, where("uid", "==", user.uid))
+
+    onSnapshot(q, (querySnapshot) => {
         clearAll(postsEl)
         
         querySnapshot.forEach((doc) => {
