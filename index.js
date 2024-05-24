@@ -194,11 +194,8 @@ async function addPostToDB(postBody, user) {
       }
 }
 
-function fetchInRealtimeAndRenderPostsFromDB(user) {
-    const postsRef = collection(db, collectionName)
-    const q = query(postsRef, where("uid", "==", user.uid), orderBy("createdAt", "desc"))
-
-    onSnapshot(q, (querySnapshot) => {
+function fetchInRealtimeAndRenderPostsFromDB(query, user) {
+    onSnapshot(query, (querySnapshot) => {
         clearAll(postsEl)
         
         querySnapshot.forEach((doc) => {
