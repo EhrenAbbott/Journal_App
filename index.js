@@ -353,3 +353,21 @@ function resetAllFilterButtons(allFilterButtons) {
         filterButtonEl.classList.remove("selected-filter")
     }
 }
+
+function updateFilterButtonStyle(element) {
+    element.classList.add("selected-filter")
+}
+
+function selectFilter(event) {
+    const user = auth.currentUser
+    
+    const selectedFilterElementId = event.target.id
+    
+    const selectedFilterPeriod = selectedFilterElementId.split("-")[0]
+    
+    const selectedFilterElement = document.getElementById(selectedFilterElementId)
+    
+    resetAllFilterButtons(filterButtonEls)
+    
+    updateFilterButtonStyle(selectedFilterElement)
+}
