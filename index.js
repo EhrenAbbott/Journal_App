@@ -207,6 +207,23 @@ function fetchInRealtimeAndRenderPostsFromDB(user) {
     })
 }
 
+function fetchTodayPosts(user) {
+    const startOfDay = new Date()
+    startOfDay.setHours(0, 0, 0, 0)
+    
+    const endOfDay = new Date()
+    endOfDay.setHours(23, 59, 59, 999)
+    
+    const postsRef = collection(db, collectionName)
+    
+    const q = query(postsRef, where("uid", "==", user.uid),
+                              where("createdAt", ">=", startOfDay),
+                              where("createdAt", "<=", endOfDay),
+                              orderBy("createdAt", "desc"))
+                              
+                              
+}
+
 
 
 /* == Functions - UI Functions == */

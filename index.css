@@ -154,11 +154,6 @@ section {
     background-color: var(--dark-color);
 }
 
-.unselected-filter {
-    color: var(--dark-color);
-    background-color: var(--white-color);
-}
-
 /* === Posts Section - Posts === */
 
 .posts-section {
