@@ -245,6 +245,25 @@ function fetchWeekPosts(user) {
     fetchInRealtimeAndRenderPostsFromDB(q, user)
 }
 
+function fetchMonthPosts(user) {
+    const startOfMonth = new Date()
+    startOfMonth.setHours(0, 0, 0, 0)
+    startOfMonth.setDate(1)
+
+    const endOfDay = new Date()
+    endOfDay.setHours(23, 59, 59, 999)
+
+	const postsRef = collection(db, collectionName)
+    
+    const q = query(postsRef, where("uid", "==", user.uid),
+                              where("createdAt", ">=", startOfMonth),
+                              where("createdAt", "<=", endOfDay),
+                              orderBy("createdAt", "desc"))
+
+    fetchInRealtimeAndRenderPostsFromDB(q, user)
+}
+
+
 
 
 /* == Functions - UI Functions == */
@@ -409,5 +428,5 @@ function selectFilter(event) {
     
     updateFilterButtonStyle(selectedFilterElement)
 
-    fetchTodayPosts(user)
+    fetchMonthPosts(user)
 }
