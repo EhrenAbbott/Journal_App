@@ -107,7 +107,8 @@ onAuthStateChanged(auth, (user) => {
         showLoggedInView()
         showProfilePicture(userProfilePictureEl, user)
         showUserGreeting(userGreetingEl, user)
-        // fetchInRealtimeAndRenderPostsFromDB(user)
+        updateFilterButtonStyle(allFilterButtonEl)
+        fetchAllPosts(user)
     } else {
         showLoggedOutView()
     }
