@@ -293,6 +293,14 @@ function createPostHeader(postData) {
     return headerDiv
 }
 
+function createPostBody(postData) {
+
+    const postBody = document.createElement("p")
+    postBody.innerHTML = replaceNewlinesWithBrTags(postData.body)
+    
+    return postBody
+}
+
 function renderPost(postsEl, postData) {
    
     const postDiv = document.createElement("div")
