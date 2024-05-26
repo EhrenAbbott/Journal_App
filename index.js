@@ -277,6 +277,22 @@ function fetchAllPosts(user) {
 
 /* == Functions - UI Functions == */
 
+function createPostHeader(postData) {
+
+    const headerDiv = document.createElement("div")
+    headerDiv.className = "header"
+    
+        const headerDate = document.createElement("h3")
+        headerDate.textContent = displayDate(postData.createdAt)
+        headerDiv.appendChild(headerDate)
+        
+        const moodImage = document.createElement("img")
+        moodImage.src = `assets/emojis/${postData.mood}.png`
+        headerDiv.appendChild(moodImage)
+        
+    return headerDiv
+}
+
 function renderPost(postsEl, postData) {
    
     const postDiv = document.createElement("div")
