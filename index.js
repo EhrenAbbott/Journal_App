@@ -263,6 +263,14 @@ function fetchMonthPosts(user) {
     fetchInRealtimeAndRenderPostsFromDB(q, user)
 }
 
+function fetchAllPosts(user) {
+    const postsRef = collection(db, collectionName)
+    const q = query(postsRef, where("uid", "==", user.uid),
+                              orderBy("createdAt", "desc"))
+
+    fetchInRealtimeAndRenderPostsFromDB(q, user)
+}
+
 
 
 
