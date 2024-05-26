@@ -423,6 +423,18 @@ function updateFilterButtonStyle(element) {
     element.classList.add("selected-filter")
 }
 
+function fetchPostsFromPeriod(period, user) {
+    if (period === "today") {
+        fetchTodayPosts(user)
+    } else if (period === "week") {
+        fetchWeekPosts(user)
+    } else if (period === "month") {
+        fetchMonthPosts(user)
+    } else {
+        fetchAllPosts(user)
+    }
+}
+
 function selectFilter(event) {
     const user = auth.currentUser
     
@@ -436,5 +448,5 @@ function selectFilter(event) {
     
     updateFilterButtonStyle(selectedFilterElement)
 
-    fetchMonthPosts(user)
+    fetchPostsFromPeriod(selectedFilterPeriod, user)
 }
