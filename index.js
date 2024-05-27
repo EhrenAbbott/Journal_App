@@ -302,12 +302,19 @@ function createPostBody(postData) {
 }
 
 function createPostUpdateButton(wholeDoc) {
+    const postId =  wholeDoc.id
+    const postData = wholeDoc.data()
 
     const button = document.createElement("button")
     button.textContent = "Edit"
     button.classList.add("edit-color")
     button.addEventListener("click", function() {
-        console.log("Edit button clicked")
+        const newBody = prompt("Edit the post", postData.body)
+
+        if (newBody) {
+            console.log(newBody)
+            //updatePostInDB(postId, newBody)
+        }
     })
     
     return button
