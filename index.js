@@ -301,6 +301,18 @@ function createPostBody(postData) {
     return postBody
 }
 
+function createPostUpdateButton() {
+
+    const button = document.createElement("button")
+    button.textContent = "Edit"
+    button.classList.add("edit-color")
+    button.addEventListener("click", function() {
+        console.log("Edit button clicked")
+    })
+    
+    return button
+}
+
 function renderPost(postsEl, postData) {
     const postDiv = document.createElement("div")
     postDiv.className = "post"
