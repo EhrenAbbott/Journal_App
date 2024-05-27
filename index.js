@@ -329,6 +329,19 @@ function createPostUpdateButton(wholeDoc) {
     return button
 }
 
+function createPostDeleteButton(wholeDoc) {
+    const postId = wholeDoc.id
+
+    const button = document.createElement('button')
+    button.textContent = 'Delete'
+    button.classList.add("delete-color")
+    button.addEventListener('click', function() {
+        console.log("Delete post")
+        //deletePostFromDB(postId)
+    })
+    return button
+}
+
 function createPostFooter(wholeDoc) {
 
     const footerDiv = document.createElement("div")
