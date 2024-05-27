@@ -313,6 +313,16 @@ function createPostUpdateButton() {
     return button
 }
 
+function createPostFooter() {
+
+    const footerDiv = document.createElement("div")
+    footerDiv.className = "footer"
+    
+    footerDiv.appendChild(createPostUpdateButton())
+    
+    return footerDiv
+}
+
 function renderPost(postsEl, postData) {
     const postDiv = document.createElement("div")
     postDiv.className = "post"
