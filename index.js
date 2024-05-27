@@ -200,7 +200,7 @@ function fetchInRealtimeAndRenderPostsFromDB(query, user) {
         clearAll(postsEl)
         
         querySnapshot.forEach((doc) => {
-            renderPost(postsEl, doc.data())
+            renderPost(postsEl, doc)
         })
     })
 }
