@@ -301,7 +301,7 @@ function createPostBody(postData) {
     return postBody
 }
 
-function createPostUpdateButton() {
+function createPostUpdateButton(wholeDoc) {
 
     const button = document.createElement("button")
     button.textContent = "Edit"
@@ -313,22 +313,25 @@ function createPostUpdateButton() {
     return button
 }
 
-function createPostFooter() {
+function createPostFooter(wholeDoc) {
 
     const footerDiv = document.createElement("div")
     footerDiv.className = "footer"
     
-    footerDiv.appendChild(createPostUpdateButton())
+    footerDiv.appendChild(createPostUpdateButton(wholeDoc))
     
     return footerDiv
 }
 
-function renderPost(postsEl, postData) {
+function renderPost(postsEl, wholeDoc) {
+    const postData = wholeDoc.data()
+
     const postDiv = document.createElement("div")
     postDiv.className = "post"
     
     postDiv.appendChild(createPostHeader(postData))
     postDiv.appendChild(createPostBody(postData))
+    postDiv.appendChild(createPostFooter(wholeDoc))
     
     postsEl.appendChild(postDiv)
 }
