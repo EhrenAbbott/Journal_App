@@ -19,7 +19,8 @@ import {
         where, 
         query, 
         orderBy, 
-        limit
+        doc, 
+        updateDoc
          } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
 
 const firebaseConfig = {
@@ -195,6 +196,14 @@ async function addPostToDB(postBody, user) {
       }
 }
 
+async function updatePostInDB(docId, newBody) {
+    const postRef = doc(db, collectionName, docId);
+
+    await updateDoc(postRef, {
+        body: newBody
+    })
+}
+
 function fetchInRealtimeAndRenderPostsFromDB(query, user) {
     onSnapshot(query, (querySnapshot) => {
         clearAll(postsEl)
@@ -313,7 +322,7 @@ function createPostUpdateButton(wholeDoc) {
 
         if (newBody) {
             console.log(newBody)
-            //updatePostInDB(postId, newBody)
+            updatePostInDB(postId, newBody)
         }
     })
     
